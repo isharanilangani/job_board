@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use App\Enums\UserRole;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -43,6 +45,16 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'role' => UserRole::class,
         ];
     }
+
+    public function resume()
+{
+    return $this->hasOne(Resume::class);
+}
+public function applications()
+{
+    return $this->hasMany(Application::class);
+}
 }
